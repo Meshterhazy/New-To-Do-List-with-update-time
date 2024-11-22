@@ -5,20 +5,20 @@ use std::io::{self, Write};
 fn main() {
     println!("Wellome to To-Do List!");
 
-    println!(
+    loop {
+        println!(
     "Write the number of operation: \n (1) Add notes. \n (2) Remove notes.  \n (3) Edit notes. \n (4) Show all notes. \n (5) Exit."
     );
 
-    let filename = "notes.txt";
-    let mut _file = match File::create(filename) {
-        Ok(y) => y,
-        Err(n) => {
-            eprintln!("Error creating file: {}", n);
-            return;
-        }
-    };
+        let filename = "notes.txt";
+        let mut _file = match File::create(filename) {
+            Ok(y) => y,
+            Err(n) => {
+                eprintln!("Error creating file: {}", n);
+                return;
+            }
+        };
 
-    loop {
         let mut operations = String::new();
         io::stdin()
             .read_line(&mut operations)
@@ -49,7 +49,6 @@ fn main() {
                 println!("Invalid operation. Try again.");
             }
         }
-        println!("Get choise again. ");
     }
 }
 
