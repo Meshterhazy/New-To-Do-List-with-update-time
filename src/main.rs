@@ -5,7 +5,15 @@ use std::io::{self, Write};
 fn main() {
     println!("Welcome to To-Do List!");
 
-    let filename = "notes.txt";
+    println!("Write the name of file: ");
+    let mut filename = String::new();
+    io::stdin()
+        .read_line(&mut filename)
+        .expect("Name can't enter");
+    filename
+        .trim()
+        .parse::<String>()
+        .expect("File get ready for name check");
 
     loop {
         println!(
@@ -29,10 +37,10 @@ fn main() {
             }
         };
         match operation {
-            1 => add_notes(filename),
-            2 => edit_notes(filename),
-            3 => remove_notes(filename),
-            4 => show_notes(filename),
+            1 => add_notes(&mut filename),
+            2 => edit_notes(&mut filename),
+            3 => remove_notes(&mut filename),
+            4 => show_notes(&mut filename),
             5 => {
                 println!("Exiting the program. Goodbye!");
                 break;
@@ -176,6 +184,6 @@ fn show_notes(filename: &str) {
     if content.trim().is_empty() {
         println!("Your To-Do-List are empty. Please write the new notes ");
     } else {
-        println!("All your notes: {}", content)
+        println!("All your notes:\n {content}");
     }
 }
